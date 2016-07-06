@@ -36,17 +36,20 @@ public class StockIntentService extends IntentService {
         Bundle args = new Bundle();
         String inputSymbol = intent.getStringExtra("symbol");
 
-        if (intent.getStringExtra("tag").equals("add")) {
-            args.putString("symbol", inputSymbol);
+        if (intent.getStringExtra("tag").equals("add") && !inputSymbol.isEmpty()) {
+            args.putString("symbol", inputSymbol.trim());
         }
         // We can call OnRunTask from the intent service to force it to run immediately instead of
         // scheduling a task.
         int errorCode = stockTaskService.onRunTask(new TaskParams(intent.getStringExtra("tag"), args));
 
         Log.v(LOG_TAG, "Error Code: " + errorCode);
-        if(errorCode == GcmNetworkManager.RESULT_FAILURE) {
+        if(errorCode == GcmNetworkManager.RESULT_FAILURE && null != inputSymbol) {
             String errorMessage = getString(R.string.symbol_not_found);
-            mHandler.post(new ShowToast(String.format(errorMessage, inputSymbol.toUpperCase()), this));
+            mHandler.post(new ShowToast(String.format(errorMessage, inputSymbol), this));
+        } else if(errorCode == GcmNetworkManager.RESULT_SUCCESS && null != inputSymbol) {
+            String successMessage = getString(R.string.symbol_found);
+            mHandler.post(new ShowToast(String.format(successMessage, inputSymbol), this));
         }
     }
 }

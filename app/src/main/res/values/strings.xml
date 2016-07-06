@@ -11,5 +11,8 @@
     <string name="input_prefill"></string>
     <string name="network_toast">Uh-oh! This app requires an internet connection</string>
 
-    <string name="symbol_not_found">Entered symbol %s is invalid</string>
+    <string name="symbol_not_found">Entered symbol %s is invalid!</string>
+    <string name="symbol_found">Entered symbol %s is added!</string>
+
+    <string name="symbol_selected" translatable="false">sym_sel</string>
 </resources>

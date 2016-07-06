@@ -1,6 +1,7 @@
 package com.sam_chordas.android.stockhawk.rest;
 
 import android.content.ContentProviderOperation;
+import android.text.format.Time;
 import android.util.Log;
 
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
@@ -90,6 +91,11 @@ public class Utils {
                         jsonObject.getString("ChangeinPercent"), true));
                 builder.withValue(QuoteColumns.CHANGE, truncateChange(change, false));
                 builder.withValue(QuoteColumns.ISCURRENT, 1);
+
+                Log.v(LOG_TAG, "dateTime: " + System.currentTimeMillis());
+                // To aid us in getting historical data
+                builder.withValue(QuoteColumns.CREATED, System.currentTimeMillis());
+
                 if (change.charAt(0) == '-') {
                     builder.withValue(QuoteColumns.ISUP, 0);
                 } else {
