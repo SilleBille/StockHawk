@@ -121,10 +121,8 @@ public class StockTaskService extends GcmTaskService {
 
         if (urlStringBuilder != null) {
             urlString = urlStringBuilder.toString();
-            Log.v(LOG_TAG, "Final URL String: " + urlString);
             try {
                 getResponse = fetchData(urlString);
-                Log.v(LOG_TAG, "Response: " + getResponse);
                 result = GcmNetworkManager.RESULT_SUCCESS;
                 try {
                     ContentValues contentValues = new ContentValues();
@@ -154,8 +152,6 @@ public class StockTaskService extends GcmTaskService {
     }
 
     private void updateWidget() {
-
-        // Setting the package ensures that only components in our app will receive the broadcast
         Intent dataUpdatedIntent = new Intent(DATA_UPDATED)
                 .setPackage(mContext.getPackageName());
         mContext.sendBroadcast(dataUpdatedIntent);

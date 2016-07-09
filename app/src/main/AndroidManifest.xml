@@ -17,7 +17,8 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:supportsRtl="true">
         <activity
             android:name=".ui.MyStocksActivity"
             android:label="@string/app_name">
@@ -55,7 +56,7 @@
             android:label="@string/title_widget_detail">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.mkd.sunshine.sunshine_myown.ACTION_DATA_UPDATED" />
+                <action android:name="com.sam_chordas.android.stockhawk_DATA_UPDATED" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"

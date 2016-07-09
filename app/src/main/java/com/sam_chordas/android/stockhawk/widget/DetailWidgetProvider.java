@@ -55,10 +55,9 @@ public class DetailWidgetProvider extends AppWidgetProvider {
     public void onReceive(@NonNull Context context, @NonNull Intent intent) {
         super.onReceive(context, intent);
         if (StockTaskService.DATA_UPDATED.equals(intent.getAction())) {
-            Log.v(LOG_TAG, "Updating....");
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             int[] appWidgetIds = appWidgetManager.getAppWidgetIds(
-                    new ComponentName(context, DetailWidgetProvider.class));
+                    new ComponentName(context, getClass()));
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_list);
         }
     }
