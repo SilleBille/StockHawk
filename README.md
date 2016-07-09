@@ -1,2 +1,4 @@
 # StockHawk
-Udacity assignment project 3
+Udacity Project Assignment - III
+
+There does not require any special instructions.
