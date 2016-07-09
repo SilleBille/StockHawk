@@ -89,13 +89,11 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                 new RecyclerViewItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View v, int position) {
-                        //TODO:
                         mCursor.moveToPosition(position);
                         Intent detailsIntent = new Intent(MyStocksActivity.this, StockDetailActivity.class);
                         String selectedSymbol = mCursor.getString(mCursor.getColumnIndex(QuoteColumns.SYMBOL));
                         detailsIntent.putExtra(
                                 getString(R.string.symbol_selected), selectedSymbol);
-                        Log.v(LOG_TAG, selectedSymbol);
                         startActivity(detailsIntent);
                     }
                 }));
@@ -119,10 +117,10 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                                     // in the DB and proceed accordingly
                                     Cursor c = getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,
                                             new String[]{QuoteColumns.SYMBOL}, QuoteColumns.SYMBOL + "= ?",
-                                            new String[]{input.toString()}, null);
-                                    if (c.getCount() != 0) {
+                                            new String[]{input.toString().toUpperCase()}, null);
+                                    if (c!= null && c.getCount() != 0) {
                                         Toast toast =
-                                                Toast.makeText(MyStocksActivity.this, "This stock is already saved!",
+                                                Toast.makeText(MyStocksActivity.this, getString(R.string.symbol_exists),
                                                         Toast.LENGTH_LONG);
                                         toast.setGravity(Gravity.CENTER, Gravity.CENTER, 0);
                                         toast.show();
@@ -151,7 +149,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         if (isConnected) {
             long period = 3600L;
             long flex = 10L;
-            String periodicTag = "periodic";
+            String periodicTag = getString(R.string.period_tag);
 
             // create a periodic task to pull stocks once every hour after the app has been opened. This
             // is so Widget data stays up to date.
