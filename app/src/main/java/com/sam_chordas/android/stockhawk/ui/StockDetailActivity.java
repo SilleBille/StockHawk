@@ -79,7 +79,7 @@ public class StockDetailActivity extends AppCompatActivity implements LoaderMana
     private void fillLineChart(Cursor cursor) {
         LineSet dataset = new LineSet();
         Paint gridPaint = new Paint();
-        gridPaint.setColor(getResources().getColor(R.color.material_blue_50));
+        gridPaint.setColor(getResources().getColor(R.color.material_blue_100));
 
         gridPaint.setStyle(Paint.Style.STROKE);
         gridPaint.setStrokeWidth(Tools.fromDpToPx(1f));
@@ -93,10 +93,8 @@ public class StockDetailActivity extends AppCompatActivity implements LoaderMana
         int start = (int) Math.floor(Float.parseFloat(cursor.getString(COL_BID_IND)));
         int end = start;
 
-        // Move back the cursor to the start
-        cursor.moveToFirst();
         int i = 1;
-        while (cursor.moveToNext()) {
+        do {
 
             Float bidValue = Float.parseFloat(cursor.getString(COL_BID_IND));
             if (bidValue.intValue() < start)
@@ -107,7 +105,7 @@ public class StockDetailActivity extends AppCompatActivity implements LoaderMana
             point.setRadius(getResources().getDimension(R.dimen.dot_radius));
             point.setColor(getResources().getColor(R.color.dot_color));
             dataset.addPoint(point);
-        }
+        } while (cursor.moveToNext());
 
 
         mLineChart.addData(dataset);
@@ -127,7 +125,7 @@ public class StockDetailActivity extends AppCompatActivity implements LoaderMana
                 .setYAxis(false)
                 .setBorderSpacing(Tools.fromDpToPx(5))
                 .setAxisBorderValues(start, end, 10)
-        .setGrid(ChartView.GridType.FULL, gridPaint);
+                .setGrid(ChartView.GridType.FULL, gridPaint);
         mLineChart.show();
 
     }

@@ -15,4 +15,8 @@
     <string name="symbol_found">Entered symbol %s is added!</string>
 
     <string name="symbol_selected" translatable="false">sym_sel</string>
+
+    <string name="empty_stocks">No stocks information Available!</string>
+
+    <string name="title_widget_detail">Stock Details</string>
 </resources>

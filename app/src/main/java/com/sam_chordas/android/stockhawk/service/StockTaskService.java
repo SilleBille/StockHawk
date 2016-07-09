@@ -3,6 +3,7 @@ package com.sam_chordas.android.stockhawk.service;
 import android.content.ContentProviderOperation;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
@@ -39,6 +40,7 @@ public class StockTaskService extends GcmTaskService {
     private StringBuilder mStoredSymbols = new StringBuilder();
     private boolean isUpdate;
     private String stockInput;
+    public static final String DATA_UPDATED = "com.sam_chordas.android.stockhawk_DATA_UPDATED";
 
     public StockTaskService() {
     }
@@ -133,8 +135,10 @@ public class StockTaskService extends GcmTaskService {
                                 null, null);
                     }
                     ArrayList<ContentProviderOperation> parsedValues = Utils.quoteJsonToContentVals(getResponse);
-                    if(parsedValues!= null && parsedValues.size() > 0 )
+                    if(parsedValues!= null && parsedValues.size() > 0 ) {
                         mContext.getContentResolver().applyBatch(QuoteProvider.AUTHORITY, parsedValues);
+                        updateWidget();
+                    }
                     else {
                         result = GcmNetworkManager.RESULT_FAILURE;
                     }
@@ -147,6 +151,14 @@ public class StockTaskService extends GcmTaskService {
         }
 
         return result;
+    }
+
+    private void updateWidget() {
+
+        // Setting the package ensures that only components in our app will receive the broadcast
+        Intent dataUpdatedIntent = new Intent(DATA_UPDATED)
+                .setPackage(mContext.getPackageName());
+        mContext.sendBroadcast(dataUpdatedIntent);
     }
 
 }

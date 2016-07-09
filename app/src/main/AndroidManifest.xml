@@ -50,6 +50,22 @@
             android:authorities="com.sam_chordas.android.stockhawk.data.QuoteProvider"
             android:exported="false" />
 
+        <receiver
+            android:name=".widget.DetailWidgetProvider"
+            android:label="@string/title_widget_detail">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.mkd.sunshine.sunshine_myown.ACTION_DATA_UPDATED" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_detail_info" />
+        </receiver>
+        <service
+            android:name=".widget.DetailWidgetRemoteViewService"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
     </application>
 
 </manifest>

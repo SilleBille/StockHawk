@@ -9,4 +9,10 @@
 
     <dimen name="dot_radius">3dp</dimen>
     <dimen name="chart_radius">2dp</dimen>
+    <dimen name="widget_padding">10sp</dimen>
+
+    <dimen name="widget_detail_default_width">250dp</dimen>
+    <dimen name="widget_detail_default_height">180dp</dimen>
+    <dimen name="widget_detail_min_resize_width">220dp</dimen>
+    <dimen name="widget_detail_min_resize_height">@dimen/widget_detail_default_height</dimen>
 </resources>
