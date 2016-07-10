@@ -84,7 +84,7 @@ public class Utils {
         String change = null;
         try {
             change = jsonObject.getString("Change");
-            if (change != null && change != "null") {
+            if (change != null && change.equals("null")) {
                 builder.withValue(QuoteColumns.SYMBOL, jsonObject.getString("symbol"));
                 builder.withValue(QuoteColumns.BIDPRICE, truncateBidPrice(jsonObject.getString("Bid")));
                 builder.withValue(QuoteColumns.PERCENT_CHANGE, truncateChange(
